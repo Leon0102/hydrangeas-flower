@@ -361,6 +361,169 @@
             pointer-events: none;
         }
 
+        /* Love Heart Animations */
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            transform: rotate(-45deg);
+            animation: heart-float 4s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(45deg, #ff6b9d, #ff8fab, #ffa8c5);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 0 0 15px rgba(255, 107, 157, 0.6);
+        }
+
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart::after {
+            top: 0;
+            left: -10px;
+        }
+
+        .heart.small {
+            width: 12px;
+            height: 12px;
+            animation: heart-float-small 5s ease-in-out infinite;
+        }
+
+        .heart.small::before,
+        .heart.small::after {
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(45deg, #ff8fab, #ffa8c5, #ffb3d1);
+        }
+
+        .heart.small::before {
+            top: -6px;
+        }
+
+        .heart.small::after {
+            left: -6px;
+        }
+
+        .heart.large {
+            width: 28px;
+            height: 28px;
+            animation: heart-float-large 6s ease-in-out infinite;
+        }
+
+        .heart.large::before,
+        .heart.large::after {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(45deg, #ff4081, #ff6b9d, #ff8fab);
+            box-shadow: 0 0 20px rgba(255, 64, 129, 0.8);
+        }
+
+        .heart.large::before {
+            top: -14px;
+        }
+
+        .heart.large::after {
+            left: -14px;
+        }
+
+        /* Heart floating animations */
+        @keyframes heart-float {
+            0%, 100% {
+                transform: rotate(-45deg) translateY(0px) scale(1);
+                opacity: 0.8;
+            }
+            25% {
+                transform: rotate(-45deg) translateY(-15px) scale(1.1);
+                opacity: 1;
+            }
+            50% {
+                transform: rotate(-45deg) translateY(-8px) scale(0.9);
+                opacity: 0.9;
+            }
+            75% {
+                transform: rotate(-45deg) translateY(-20px) scale(1.05);
+                opacity: 1;
+            }
+        }
+
+        @keyframes heart-float-small {
+            0%, 100% {
+                transform: rotate(-45deg) translateY(0px) scale(1) rotate(5deg);
+                opacity: 0.7;
+            }
+            33% {
+                transform: rotate(-45deg) translateY(-12px) scale(1.2) rotate(-3deg);
+                opacity: 1;
+            }
+            66% {
+                transform: rotate(-45deg) translateY(-5px) scale(0.8) rotate(8deg);
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes heart-float-large {
+            0%, 100% {
+                transform: rotate(-45deg) translateY(0px) scale(1);
+                opacity: 0.9;
+            }
+            20% {
+                transform: rotate(-45deg) translateY(-25px) scale(1.15);
+                opacity: 1;
+            }
+            40% {
+                transform: rotate(-45deg) translateY(-10px) scale(0.85);
+                opacity: 0.8;
+            }
+            60% {
+                transform: rotate(-45deg) translateY(-18px) scale(1.1);
+                opacity: 1;
+            }
+            80% {
+                transform: rotate(-45deg) translateY(-5px) scale(0.9);
+                opacity: 0.9;
+            }
+        }
+
+        /* Love sparkle effect */
+        .love-sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: linear-gradient(45deg, #ff6b9d, #ffffff);
+            border-radius: 50%;
+            animation: love-sparkle-twinkle 2s linear infinite;
+            box-shadow: 0 0 8px rgba(255, 107, 157, 0.8);
+        }
+
+        .love-sparkle::before,
+        .love-sparkle::after {
+            content: '';
+            position: absolute;
+            width: 1px;
+            height: 6px;
+            background: linear-gradient(to bottom, #ff6b9d, #ffffff);
+            top: -1px;
+            left: 1.5px;
+        }
+
+        .love-sparkle::after {
+            transform: rotate(90deg);
+        }
+
+        @keyframes love-sparkle-twinkle {
+            0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1) rotate(180deg); }
+        }
+
         @keyframes gentle-sway {
             0%, 100% { transform: rotate(-3deg) translateY(0px); }
             50% { transform: rotate(3deg) translateY(-5px); }
@@ -564,7 +727,50 @@
             }, 3000);
         }
 
-        // Initialize the flowers
+        // Create floating love hearts
+        function createLoveHeart() {
+            const heart = document.createElement('div');
+            const heartTypes = ['heart', 'heart small', 'heart large'];
+            const randomType = heartTypes[Math.floor(Math.random() * heartTypes.length)];
+            heart.className = randomType;
+
+            // Position hearts around the flower
+            const angle = Math.random() * 2 * Math.PI;
+            const radius = 200 + Math.random() * 150;
+            const x = Math.cos(angle) * radius;
+            const y = Math.sin(angle) * radius;
+
+            heart.style.left = (x + window.innerWidth/2) + 'px';
+            heart.style.top = (y + window.innerHeight/2) + 'px';
+            heart.style.animationDelay = Math.random() * 3 + 's';
+
+            document.querySelector('.garden-container').appendChild(heart);
+
+            setTimeout(() => {
+                if (heart.parentNode) {
+                    heart.parentNode.removeChild(heart);
+                }
+            }, 6000);
+        }
+
+        // Create love sparkles
+        function createLoveSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'love-sparkle';
+            const angle = Math.random() * 2 * Math.PI;
+            const radius = 180 + Math.random() * 120;
+            const x = Math.cos(angle) * radius;
+            const y = Math.sin(angle) * radius;
+            sparkle.style.left = (x + window.innerWidth/2) + 'px';
+            sparkle.style.top = (y + window.innerHeight/2) + 'px';
+            sparkle.style.animationDelay = Math.random() * 2 + 's';
+            document.querySelector('.garden-container').appendChild(sparkle);
+            setTimeout(() => {
+                if (sparkle.parentNode) {
+                    sparkle.parentNode.removeChild(sparkle);
+                }
+            }, 2000);
+        }        // Initialize the flowers
         function init() {
             // Create center cluster with mixed colors
             createHydrangeaFlowers('flowerClusterCenter', 30, 'default');
@@ -581,7 +787,10 @@
             createHydrangeaFlowers('flowerClusterBottomLeft', 12, 'purple');
             createHydrangeaFlowers('flowerClusterBottomRight', 12, 'blue');
 
+            // Start love animations
             setInterval(createSparkle, 800);
+            setInterval(createLoveHeart, 2000);
+            setInterval(createLoveSparkle, 1500);
         }
         window.addEventListener('load', init);
     </script>
