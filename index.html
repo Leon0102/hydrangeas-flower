@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hydrangea Flower with Love Animation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .flower-container {
+            position: relative;
+            transform-style: preserve-3d;
+            animation: gentle-sway 4s ease-in-out infinite;
+        }
+
+        .stem {
+            width: 8px;
+            height: 200px;
+            background: linear-gradient(to bottom, #4a7c59 0%, #2d5a3d 100%);
+            position: absolute;
+            bottom: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 4px;
+            box-shadow: 2px 0 4px rgba(0,0,0,0.3);
+        }
+
+        .leaf {
+            width: 40px;
+            height: 80px;
+            background: linear-gradient(45deg, #4a7c59 0%, #6b9b76 50%, #4a7c59 100%);
+            position: absolute;
+            border-radius: 0 70% 0 70%;
+            transform-origin: bottom center;
+        }
+
+        .leaf.left {
+            bottom: -80px;
+            left: -30px;
+            transform: rotate(-30deg);
+            animation: leaf-dance 3s ease-in-out infinite;
+        }
+
+        .leaf.right {
+            bottom: -120px;
+            right: -30px;
+            transform: rotate(30deg);
+            animation: leaf-dance 3s ease-in-out infinite 0.5s;
+        }
+
+        .hydrangea-head {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, transparent 70%);
+        }
+
+        .flower-cluster {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .small-flower {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #e8a8ff 0%, #c678dd 50%, #8e44ad 100%);
+            box-shadow:
+                inset 2px 2px 4px rgba(255,255,255,0.3),
+                0 2px 8px rgba(142, 68, 173, 0.4);
+            animation: flower-bloom 2s ease-in-out infinite;
+        }
+
+        .small-flower::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 8px;
+            height: 8px;
+            background: #f1c40f;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 4px rgba(241, 196, 15, 0.6);
+        }
+
+        .petal {
+            position: absolute;
+            width: 12px;
+            height: 16px;
+            background: linear-gradient(to bottom, #e8a8ff 0%, #c678dd 100%);
+            border-radius: 50% 50% 0 0;
+            transform-origin: bottom center;
+        }
+
+        .petal:nth-child(1) { transform: rotate(0deg) translateY(-8px); }
+        .petal:nth-child(2) { transform: rotate(72deg) translateY(-8px); }
+        .petal:nth-child(3) { transform: rotate(144deg) translateY(-8px); }
+        .petal:nth-child(4) { transform: rotate(216deg) translateY(-8px); }
+        .petal:nth-child(5) { transform: rotate(288deg) translateY(-8px); }
+
+        .love-heart {
+            position: absolute;
+            width: 20px;
+            height: 18px;
+            transform: rotate(-45deg);
+            animation: love-float 3s ease-in-out infinite;
+            opacity: 0.8;
+        }
+
+        .love-heart::before,
+        .love-heart::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 16px;
+            background: #ff6b8a;
+            border-radius: 10px 10px 0 0;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+
+        .love-heart::after {
+            left: 8.5px;
+            transform: rotate(45deg);
+            transform-origin: 0 100%;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            border-radius: 50%;
+            animation: sparkle-twinkle 2s linear infinite;
+        }
+
+        .sparkle::before,
+        .sparkle::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 8px;
+            background: #fff;
+            top: -2px;
+            left: 1px;
+        }
+
+        .sparkle::after {
+            transform: rotate(90deg);
+        }
+
+        .title {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-size: 24px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: title-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes gentle-sway {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+
+        @keyframes flower-bloom {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes leaf-dance {
+            0%, 100% { transform: rotate(-30deg) scale(1); }
+            50% { transform: rotate(-25deg) scale(1.05); }
+        }
+
+        @keyframes love-float {
+            0% {
+                transform: rotate(-45deg) translateY(0px) scale(0.8);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+                transform: rotate(-45deg) translateY(-30px) scale(1);
+            }
+            100% {
+                transform: rotate(-45deg) translateY(-60px) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        @keyframes sparkle-twinkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes title-glow {
+            0% { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 10px rgba(255,255,255,0.3); }
+            100% { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.6); }
+        }
+
+        .fade-in {
+            animation: fade-in 1s ease-in-out;
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="flower-container fade-in">
+        <div class="title">💕 Hydrangea Love 💕</div>
+
+        <div class="hydrangea-head">
+            <div class="flower-cluster" id="flowerCluster">
+                <!-- Small flowers will be generated by JavaScript -->
+            </div>
+        </div>
+
+        <div class="stem">
+            <div class="leaf left"></div>
+            <div class="leaf right"></div>
+        </div>
+    </div>
+
+    <script>
+        // Generate small flowers for the hydrangea cluster
+        function createHydrangeaFlowers() {
+            const cluster = document.getElementById('flowerCluster');
+            const flowerPositions = [
+                {x: 50, y: 30}, {x: 80, y: 45}, {x: 30, y: 50}, {x: 70, y: 25},
+                {x: 90, y: 70}, {x: 20, y: 75}, {x: 60, y: 60}, {x: 40, y: 35},
+                {x: 75, y: 80}, {x: 25, y: 25}, {x: 85, y: 50}, {x: 45, y: 75},
+                {x: 65, y: 40}, {x: 35, y: 65}, {x: 55, y: 20}, {x: 15, y: 55},
+                {x: 95, y: 35}, {x: 50, y: 85}, {x: 80, y: 15}, {x: 20, y: 40}
+            ];
+
+            flowerPositions.forEach((pos, index) => {
+                const flower = document.createElement('div');
+                flower.className = 'small-flower';
+                flower.style.left = pos.x + '%';
+                flower.style.top = pos.y + '%';
+                flower.style.animationDelay = (index * 0.1) + 's';
+
+                // Add petals to each flower
+                for (let i = 1; i <= 5; i++) {
+                    const petal = document.createElement('div');
+                    petal.className = 'petal';
+                    flower.appendChild(petal);
+                }
+
+                cluster.appendChild(flower);
+            });
+        }
+
+        // Create floating love hearts
+        function createLoveHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'love-heart';
+
+            // Random position around the flower
+            const angle = Math.random() * 2 * Math.PI;
+            const radius = 120 + Math.random() * 50;
+            const x = Math.cos(angle) * radius;
+            const y = Math.sin(angle) * radius;
+
+            heart.style.left = (x + 100) + 'px';
+            heart.style.top = (y + 100) + 'px';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+
+            document.querySelector('.flower-container').appendChild(heart);
+
+            // Remove heart after animation
+            setTimeout(() => {
+                if (heart.parentNode) {
+                    heart.parentNode.removeChild(heart);
+                }
+            }, 4000);
+        }
+
+        // Create sparkles
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+
+            // Random position around the flower head
+            const angle = Math.random() * 2 * Math.PI;
+            const radius = 80 + Math.random() * 40;
+            const x = Math.cos(angle) * radius;
+            const y = Math.sin(angle) * radius;
+
+            sparkle.style.left = (x + 100) + 'px';
+            sparkle.style.top = (y + 100) + 'px';
+            sparkle.style.animationDelay = Math.random() * 2 + 's';
+
+            document.querySelector('.flower-container').appendChild(sparkle);
+
+            // Remove sparkle after animation
+            setTimeout(() => {
+                if (sparkle.parentNode) {
+                    sparkle.parentNode.removeChild(sparkle);
+                }
+            }, 3000);
+        }
+
+        // Add color variation to flowers
+        function addColorVariation() {
+            const flowers = document.querySelectorAll('.small-flower');
+            const colors = [
+                'radial-gradient(circle at 30% 30%, #e8a8ff 0%, #c678dd 50%, #8e44ad 100%)',
+                'radial-gradient(circle at 30% 30%, #a8e6ff 0%, #78c6dd 50%, #4a8ead 100%)',
+                'radial-gradient(circle at 30% 30%, #ffa8e8 0%, #dd78c6 50%, #ad4a8e 100%)',
+                'radial-gradient(circle at 30% 30%, #d8a8ff 0%, #b678dd 50%, #7e44ad 100%)'
+            ];
+
+            flowers.forEach(flower => {
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                flower.style.background = randomColor;
+            });
+        }
+
+        // Interactive effects
+        function addInteractivity() {
+            const flowerContainer = document.querySelector('.flower-container');
+
+            flowerContainer.addEventListener('mouseenter', () => {
+                flowerContainer.style.transform = 'scale(1.1)';
+                flowerContainer.style.transition = 'transform 0.3s ease';
+            });
+
+            flowerContainer.addEventListener('mouseleave', () => {
+                flowerContainer.style.transform = 'scale(1)';
+            });
+
+            // Click to create extra hearts
+            flowerContainer.addEventListener('click', () => {
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => createLoveHeart(), i * 200);
+                }
+            });
+        }
+
+        // Initialize the flower
+        function init() {
+            createHydrangeaFlowers();
+            addColorVariation();
+            addInteractivity();
+
+            // Continuously create love hearts and sparkles
+            setInterval(createLoveHeart, 2000);
+            setInterval(createSparkle, 1500);
+        }
+
+        // Start when page loads
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>
