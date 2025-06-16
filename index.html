@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hydrangea Flower with Love Animation</title>
+    <title>Hydrangea Flower Animation</title>
     <style>
         * {
             margin: 0;
@@ -12,54 +12,247 @@
         }
 
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 30%, #0f3460 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
             font-family: 'Arial', sans-serif;
+            position: relative;
         }
 
-        .flower-container {
+        .garden-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .main-flower-plant {
             position: relative;
             transform-style: preserve-3d;
-            animation: gentle-sway 4s ease-in-out infinite;
+            animation: gentle-sway 6s ease-in-out infinite;
+            z-index: 2;
         }
 
-        .stem {
-            width: 8px;
-            height: 200px;
-            background: linear-gradient(to bottom, #4a7c59 0%, #2d5a3d 100%);
+        .combined-flower-head {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: head-glow 4s ease-in-out infinite alternate;
+            margin-bottom: 20px;
+        }
+
+        .flower-cluster {
             position: absolute;
-            bottom: -150px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .flower-cluster.center {
+            width: 160px;
+            height: 160px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+        }
+
+        .flower-cluster.top {
+            width: 100px;
+            height: 100px;
+            top: 15%;
             left: 50%;
             transform: translateX(-50%);
-            border-radius: 4px;
-            box-shadow: 2px 0 4px rgba(0,0,0,0.3);
+            z-index: 4;
+        }
+
+        .flower-cluster.bottom {
+            width: 100px;
+            height: 100px;
+            bottom: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 4;
+        }
+
+        .flower-cluster.left {
+            width: 100px;
+            height: 100px;
+            top: 50%;
+            left: 15%;
+            transform: translateY(-50%);
+            z-index: 4;
+        }
+
+        .flower-cluster.right {
+            width: 100px;
+            height: 100px;
+            top: 50%;
+            right: 15%;
+            transform: translateY(-50%);
+            z-index: 4;
+        }
+
+        .flower-cluster.top-left {
+            width: 80px;
+            height: 80px;
+            top: 25%;
+            left: 25%;
+            z-index: 3;
+        }
+
+        .flower-cluster.top-right {
+            width: 80px;
+            height: 80px;
+            top: 25%;
+            right: 25%;
+            z-index: 3;
+        }
+
+        .flower-cluster.bottom-left {
+            width: 80px;
+            height: 80px;
+            bottom: 25%;
+            left: 25%;
+            z-index: 3;
+        }
+
+        .flower-cluster.bottom-right {
+            width: 80px;
+            height: 80px;
+            bottom: 25%;
+            right: 25%;
+            z-index: 3;
+        }
+
+        .main-stem {
+            width: 12px;
+            height: 300px;
+            background: linear-gradient(to bottom, #5a7c59 0%, #4a6b4f 30%, #3d5a3d 70%, #2d4a2d 100%);
+            position: absolute;
+            bottom: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 6px;
+            box-shadow:
+                2px 0 6px rgba(0,0,0,0.3),
+                inset 1px 0 2px rgba(255, 255, 255, 0.2),
+                inset -1px 0 2px rgba(0, 0, 0, 0.2);
+            animation: stem-gentle-sway 7s ease-in-out infinite;
+        }
+
+        .main-stem::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), transparent);
+            transform: translateX(-50%);
+            border-radius: 1px;
         }
 
         .leaf {
-            width: 40px;
-            height: 80px;
-            background: linear-gradient(45deg, #4a7c59 0%, #6b9b76 50%, #4a7c59 100%);
+            width: 50px;
+            height: 90px;
+            background: linear-gradient(45deg, #4a7c59 0%, #7fb069 30%, #88c999 50%, #6b9b76 70%, #4a7c59 100%);
+            position: absolute;
+            border-radius: 0 80% 0 80%;
+            transform-origin: bottom center;
+            box-shadow:
+                inset 2px 2px 8px rgba(255, 255, 255, 0.2),
+                inset -2px -2px 8px rgba(0, 0, 0, 0.2),
+                0 4px 12px rgba(74, 124, 89, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .leaf::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            width: 2px;
+            height: 60%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1));
+            transform: translateX(-50%);
+            border-radius: 1px;
+        }
+
+        .leaf::after {
+            content: '';
+            position: absolute;
+            top: 30%;
+            left: 30%;
+            width: 1px;
+            height: 30%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), transparent);
+            transform: rotate(25deg);
+            border-radius: 1px;
+        }
+
+        .small-leaf {
+            width: 25px;
+            height: 40px;
+            background: linear-gradient(45deg, #6b9b76 0%, #88c999 50%, #7fb069 100%);
             position: absolute;
             border-radius: 0 70% 0 70%;
             transform-origin: bottom center;
+            box-shadow:
+                inset 1px 1px 4px rgba(255, 255, 255, 0.3),
+                0 2px 6px rgba(74, 124, 89, 0.2);
+            animation: small-leaf-flutter 3s ease-in-out infinite;
+            top: 50%;
+            right: -12px;
+            transform: translateY(-50%) rotate(15deg);
         }
 
-        .leaf.left {
-            bottom: -80px;
-            left: -30px;
-            transform: rotate(-30deg);
-            animation: leaf-dance 3s ease-in-out infinite;
+        .small-leaf::before {
+            content: '';
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            width: 1px;
+            height: 40%;
+            background: rgba(255, 255, 255, 0.4);
+            transform: translateX(-50%);
         }
 
-        .leaf.right {
-            bottom: -120px;
-            right: -30px;
-            transform: rotate(30deg);
-            animation: leaf-dance 3s ease-in-out infinite 0.5s;
+        @keyframes small-leaf-flutter {
+            0%, 100% { transform: translateY(-50%) rotate(15deg) scale(1); }
+            25% { transform: translateY(-50%) rotate(20deg) scale(1.02); }
+            50% { transform: translateY(-50%) rotate(10deg) scale(0.98); }
+            75% { transform: translateY(-50%) rotate(17deg) scale(1.01); }
+        }
+
+        .branch {
+            position: absolute;
+            width: 4px;
+            height: 60px;
+            background: linear-gradient(to bottom, #5a6b47 0%, #3d4a2f 100%);
+            border-radius: 2px;
+            transform-origin: top center;
+            box-shadow: 1px 0 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .branch.left {
+            bottom: -70px;
+            left: -15px;
+            transform: rotate(-25deg);
+            animation: branch-sway 5s ease-in-out infinite;
+        }
+
+        .branch.right {
+            bottom: -110px;
+            right: -15px;
+            transform: rotate(25deg);
+            animation: branch-sway 5s ease-in-out infinite 1s;
         }
 
         .hydrangea-head {
@@ -67,13 +260,8 @@
             width: 200px;
             height: 200px;
             border-radius: 50%;
-            background: radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, transparent 70%);
-        }
-
-        .flower-cluster {
-            position: absolute;
-            width: 100%;
-            height: 100%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: head-glow 4s ease-in-out infinite alternate;
         }
 
         .small-flower {
@@ -84,8 +272,18 @@
             background: radial-gradient(circle at 30% 30%, #e8a8ff 0%, #c678dd 50%, #8e44ad 100%);
             box-shadow:
                 inset 2px 2px 4px rgba(255,255,255,0.3),
-                0 2px 8px rgba(142, 68, 173, 0.4);
-            animation: flower-bloom 2s ease-in-out infinite;
+                0 2px 8px rgba(142, 68, 173, 0.4),
+                0 0 15px rgba(142, 68, 173, 0.3);
+            animation: flower-bloom 3s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+
+        .small-flower:hover {
+            transform: scale(1.2);
+            box-shadow:
+                inset 2px 2px 4px rgba(255,255,255,0.5),
+                0 4px 16px rgba(142, 68, 173, 0.6),
+                0 0 25px rgba(142, 68, 173, 0.5);
         }
 
         .small-flower::before {
@@ -116,40 +314,14 @@
         .petal:nth-child(4) { transform: rotate(216deg) translateY(-8px); }
         .petal:nth-child(5) { transform: rotate(288deg) translateY(-8px); }
 
-        .love-heart {
-            position: absolute;
-            width: 20px;
-            height: 18px;
-            transform: rotate(-45deg);
-            animation: love-float 3s ease-in-out infinite;
-            opacity: 0.8;
-        }
-
-        .love-heart::before,
-        .love-heart::after {
-            content: '';
-            position: absolute;
-            width: 10px;
-            height: 16px;
-            background: #ff6b8a;
-            border-radius: 10px 10px 0 0;
-            transform: rotate(-45deg);
-            transform-origin: 0 100%;
-        }
-
-        .love-heart::after {
-            left: 8.5px;
-            transform: rotate(45deg);
-            transform-origin: 0 100%;
-        }
-
         .sparkle {
             position: absolute;
-            width: 4px;
-            height: 4px;
+            width: 6px;
+            height: 6px;
             background: #fff;
             border-radius: 50%;
-            animation: sparkle-twinkle 2s linear infinite;
+            animation: sparkle-twinkle 3s linear infinite;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
         }
 
         .sparkle::before,
@@ -167,45 +339,68 @@
             transform: rotate(90deg);
         }
 
-        .title {
+        .branch .small-leaf {
+            top: 40%;
+            right: -8px;
+        }
+
+        .branch.right .small-leaf {
+            left: -8px;
+            right: auto;
+        }
+
+        .leaf-shimmer {
             position: absolute;
-            top: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #fff;
-            font-size: 24px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            animation: title-glow 2s ease-in-out infinite alternate;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%);
+            border-radius: inherit;
+            animation: shimmer-sweep 4s ease-in-out infinite;
+            pointer-events: none;
         }
 
         @keyframes gentle-sway {
-            0%, 100% { transform: rotate(-2deg); }
-            50% { transform: rotate(2deg); }
+            0%, 100% { transform: rotate(-3deg) translateY(0px); }
+            50% { transform: rotate(3deg) translateY(-5px); }
+        }
+
+        @keyframes gentle-sway-reverse {
+            0%, 100% { transform: rotate(3deg) translateY(-2px); }
+            50% { transform: rotate(-3deg) translateY(-8px); }
+        }
+
+        @keyframes head-glow {
+            0% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.1); }
+            100% { box-shadow: 0 0 40px rgba(255, 255, 255, 0.3); }
         }
 
         @keyframes flower-bloom {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            33% { transform: scale(1.15) rotate(2deg); }
+            66% { transform: scale(1.05) rotate(-1deg); }
         }
 
-        @keyframes leaf-dance {
-            0%, 100% { transform: rotate(-30deg) scale(1); }
-            50% { transform: rotate(-25deg) scale(1.05); }
+        @keyframes leaf-dance-left {
+            0%, 100% { transform: rotate(-35deg) scale(1) translateY(0px); }
+            25% { transform: rotate(-30deg) scale(1.02) translateY(-2px); }
+            50% { transform: rotate(-40deg) scale(1.05) translateY(-1px); }
+            75% { transform: rotate(-32deg) scale(1.01) translateY(-3px); }
         }
 
-        @keyframes love-float {
-            0% {
-                transform: rotate(-45deg) translateY(0px) scale(0.8);
-                opacity: 0;
-            }
-            50% {
-                opacity: 1;
-                transform: rotate(-45deg) translateY(-30px) scale(1);
-            }
-            100% {
-                transform: rotate(-45deg) translateY(-60px) scale(0.8);
-                opacity: 0;
-            }
+        @keyframes leaf-dance-right {
+            0%, 100% { transform: rotate(35deg) scale(1) translateY(0px); }
+            25% { transform: rotate(40deg) scale(1.02) translateY(-1px); }
+            50% { transform: rotate(30deg) scale(1.05) translateY(-3px); }
+            75% { transform: rotate(38deg) scale(1.01) translateY(-2px); }
+        }
+
+        @keyframes stem-gentle-sway {
+            0%, 100% { transform: translateX(-50%) rotate(0deg); }
+            25% { transform: translateX(-50%) rotate(1deg); }
+            50% { transform: translateX(-50%) rotate(0deg); }
+            75% { transform: translateX(-50%) rotate(-1deg); }
         }
 
         @keyframes sparkle-twinkle {
@@ -213,9 +408,17 @@
             50% { opacity: 1; transform: scale(1); }
         }
 
-        @keyframes title-glow {
-            0% { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 10px rgba(255,255,255,0.3); }
-            100% { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.6); }
+        @keyframes small-leaf-flutter {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(5deg) scale(1.02); }
+            50% { transform: rotate(-3deg) scale(0.98); }
+            75% { transform: rotate(2deg) scale(1.01); }
+        }
+
+        @keyframes shimmer-sweep {
+            0% { transform: translateX(-100%) rotate(45deg); opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { transform: translateX(200%) rotate(45deg); opacity: 0; }
         }
 
         .fade-in {
@@ -229,94 +432,131 @@
     </style>
 </head>
 <body>
-    <div class="flower-container fade-in">
-        <div class="title">💕 Hydrangea Love 💕</div>
+    <div class="garden-container">
+        <!-- Single combined flower plant -->        <div class="main-flower-plant fade-in">
+            <div class="combined-flower-head">
+                <!-- Center main flower cluster -->
+                <div class="flower-cluster center" id="flowerClusterCenter"></div>
+                <!-- Cardinal direction clusters -->
+                <div class="flower-cluster top" id="flowerClusterTop"></div>
+                <div class="flower-cluster bottom" id="flowerClusterBottom"></div>
+                <div class="flower-cluster left" id="flowerClusterLeft"></div>
+                <div class="flower-cluster right" id="flowerClusterRight"></div>
+                <!-- Diagonal clusters -->
+                <div class="flower-cluster top-left" id="flowerClusterTopLeft"></div>
+                <div class="flower-cluster top-right" id="flowerClusterTopRight"></div>
+                <div class="flower-cluster bottom-left" id="flowerClusterBottomLeft"></div>
+                <div class="flower-cluster bottom-right" id="flowerClusterBottomRight"></div>
+            </div>
 
-        <div class="hydrangea-head">
-            <div class="flower-cluster" id="flowerCluster">
-                <!-- Small flowers will be generated by JavaScript -->
+            <!-- Main stem only -->
+            <div class="main-stem">
             </div>
         </div>
-
-        <div class="stem">
-            <div class="leaf left"></div>
-            <div class="leaf right"></div>
-        </div>
     </div>
+    <script>        // Generate small flowers for the hydrangea cluster
+        function createHydrangeaFlowers(clusterId, count = 20, colorScheme = 'default') {
+            const cluster = document.getElementById(clusterId);
+            const flowerPositions = [];
 
-    <script>
-        // Generate small flowers for the hydrangea cluster
-        function createHydrangeaFlowers() {
-            const cluster = document.getElementById('flowerCluster');
-            const flowerPositions = [
-                {x: 50, y: 30}, {x: 80, y: 45}, {x: 30, y: 50}, {x: 70, y: 25},
-                {x: 90, y: 70}, {x: 20, y: 75}, {x: 60, y: 60}, {x: 40, y: 35},
-                {x: 75, y: 80}, {x: 25, y: 25}, {x: 85, y: 50}, {x: 45, y: 75},
-                {x: 65, y: 40}, {x: 35, y: 65}, {x: 55, y: 20}, {x: 15, y: 55},
-                {x: 95, y: 35}, {x: 50, y: 85}, {x: 80, y: 15}, {x: 20, y: 40}
-            ];
+            // Generate different flower positions based on cluster type
+            if (clusterId === 'flowerClusterCenter') {
+                // Dense center cluster
+                for (let i = 0; i < count * 1.5; i++) {
+                    const angle = (i / (count * 1.5)) * 2 * Math.PI;
+                    const radius = 10 + Math.random() * 70;
+                    const x = 50 + Math.cos(angle) * radius / 100 * 50;
+                    const y = 50 + Math.sin(angle) * radius / 100 * 50;
+                    flowerPositions.push({x, y});
+                }
+            } else {
+                // Smaller surrounding clusters
+                for (let i = 0; i < count * 0.7; i++) {
+                    const angle = (i / (count * 0.7)) * 2 * Math.PI;
+                    const radius = 5 + Math.random() * 40;
+                    const x = 50 + Math.cos(angle) * radius / 100 * 50;
+                    const y = 50 + Math.sin(angle) * radius / 100 * 50;
+                    flowerPositions.push({x, y});
+                }
+            }
 
             flowerPositions.forEach((pos, index) => {
                 const flower = document.createElement('div');
                 flower.className = 'small-flower';
                 flower.style.left = pos.x + '%';
                 flower.style.top = pos.y + '%';
-                flower.style.animationDelay = (index * 0.1) + 's';
+                flower.style.animationDelay = (index * 0.05) + 's';
 
-                // Add petals to each flower
+                // Set color based on scheme
+                const colors = getColorScheme(colorScheme);
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                flower.style.background = randomColor;
+
                 for (let i = 1; i <= 5; i++) {
                     const petal = document.createElement('div');
                     petal.className = 'petal';
+                    petal.style.background = randomColor.replace('30%', '20%');
                     flower.appendChild(petal);
                 }
-
                 cluster.appendChild(flower);
             });
         }
 
-        // Create floating love hearts
-        function createLoveHeart() {
-            const heart = document.createElement('div');
-            heart.className = 'love-heart';
-
-            // Random position around the flower
-            const angle = Math.random() * 2 * Math.PI;
-            const radius = 120 + Math.random() * 50;
-            const x = Math.cos(angle) * radius;
-            const y = Math.sin(angle) * radius;
-
-            heart.style.left = (x + 100) + 'px';
-            heart.style.top = (y + 100) + 'px';
-            heart.style.animationDelay = Math.random() * 2 + 's';
-
-            document.querySelector('.flower-container').appendChild(heart);
-
-            // Remove heart after animation
-            setTimeout(() => {
-                if (heart.parentNode) {
-                    heart.parentNode.removeChild(heart);
-                }
-            }, 4000);
+        // Get color schemes for different clusters
+        function getColorScheme(scheme) {
+            const colorSchemes = {
+                'purple': [
+                    'radial-gradient(circle at 30% 30%, #e8a8ff 0%, #c678dd 50%, #8e44ad 100%)',
+                    'radial-gradient(circle at 30% 30%, #d8a8ff 0%, #b678dd 50%, #7e44ad 100%)',
+                    'radial-gradient(circle at 30% 30%, #f8a8ff 0%, #d678dd 50%, #9e44ad 100%)'
+                ],
+                'blue': [
+                    'radial-gradient(circle at 30% 30%, #a8e6ff 0%, #78c6dd 50%, #4a8ead 100%)',
+                    'radial-gradient(circle at 30% 30%, #98d6ff 0%, #68b6dd 50%, #3a7ead 100%)',
+                    'radial-gradient(circle at 30% 30%, #88c6ff 0%, #58a6dd 50%, #2a6ead 100%)'
+                ],
+                'pink': [
+                    'radial-gradient(circle at 30% 30%, #ffa8e8 0%, #dd78c6 50%, #ad4a8e 100%)',
+                    'radial-gradient(circle at 30% 30%, #ff98d8 0%, #cd68b6 50%, #9d3a7e 100%)',
+                    'radial-gradient(circle at 30% 30%, #ff88c8 0%, #bd58a6 50%, #8d2a6e 100%)'
+                ],
+                'lavender': [
+                    'radial-gradient(circle at 30% 30%, #e8c8ff 0%, #c698dd 50%, #8e68ad 100%)',
+                    'radial-gradient(circle at 30% 30%, #d8b8ff 0%, #b688dd 50%, #7e58ad 100%)',
+                    'radial-gradient(circle at 30% 30%, #c8a8ff 0%, #a678dd 50%, #6e48ad 100%)'
+                ],
+                'coral': [
+                    'radial-gradient(circle at 30% 30%, #ffb8c8 0%, #dd88a6 50%, #ad5874 100%)',
+                    'radial-gradient(circle at 30% 30%, #ffa8b8 0%, #cd7896 50%, #9d4864 100%)',
+                    'radial-gradient(circle at 30% 30%, #ff98a8 0%, #bd6886 50%, #8d3854 100%)'
+                ],
+                'mint': [
+                    'radial-gradient(circle at 30% 30%, #a8ffc8 0%, #78dd96 50%, #48ad64 100%)',
+                    'radial-gradient(circle at 30% 30%, #98ffb8 0%, #68cd86 50%, #389d54 100%)',
+                    'radial-gradient(circle at 30% 30%, #88ffa8 0%, #58bd76 50%, #288d44 100%)'
+                ],
+                'default': [
+                    'radial-gradient(circle at 30% 30%, #e8a8ff 0%, #c678dd 50%, #8e44ad 100%)',
+                    'radial-gradient(circle at 30% 30%, #a8e6ff 0%, #78c6dd 50%, #4a8ead 100%)',
+                    'radial-gradient(circle at 30% 30%, #ffa8e8 0%, #dd78c6 50%, #ad4a8e 100%)',
+                    'radial-gradient(circle at 30% 30%, #d8a8ff 0%, #b678dd 50%, #7e44ad 100%)'
+                ]
+            };
+            return colorSchemes[scheme] || colorSchemes.default;
         }
 
         // Create sparkles
         function createSparkle() {
             const sparkle = document.createElement('div');
             sparkle.className = 'sparkle';
-
-            // Random position around the flower head
             const angle = Math.random() * 2 * Math.PI;
-            const radius = 80 + Math.random() * 40;
+            const radius = 150 + Math.random() * 100;
             const x = Math.cos(angle) * radius;
             const y = Math.sin(angle) * radius;
-
-            sparkle.style.left = (x + 100) + 'px';
-            sparkle.style.top = (y + 100) + 'px';
+            sparkle.style.left = (x + window.innerWidth/2) + 'px';
+            sparkle.style.top = (y + window.innerHeight/2) + 'px';
             sparkle.style.animationDelay = Math.random() * 2 + 's';
-
-            document.querySelector('.flower-container').appendChild(sparkle);
-
-            // Remove sparkle after animation
+            document.querySelector('.garden-container').appendChild(sparkle);
             setTimeout(() => {
                 if (sparkle.parentNode) {
                     sparkle.parentNode.removeChild(sparkle);
@@ -324,55 +564,25 @@
             }, 3000);
         }
 
-        // Add color variation to flowers
-        function addColorVariation() {
-            const flowers = document.querySelectorAll('.small-flower');
-            const colors = [
-                'radial-gradient(circle at 30% 30%, #e8a8ff 0%, #c678dd 50%, #8e44ad 100%)',
-                'radial-gradient(circle at 30% 30%, #a8e6ff 0%, #78c6dd 50%, #4a8ead 100%)',
-                'radial-gradient(circle at 30% 30%, #ffa8e8 0%, #dd78c6 50%, #ad4a8e 100%)',
-                'radial-gradient(circle at 30% 30%, #d8a8ff 0%, #b678dd 50%, #7e44ad 100%)'
-            ];
-
-            flowers.forEach(flower => {
-                const randomColor = colors[Math.floor(Math.random() * colors.length)];
-                flower.style.background = randomColor;
-            });
-        }
-
-        // Interactive effects
-        function addInteractivity() {
-            const flowerContainer = document.querySelector('.flower-container');
-
-            flowerContainer.addEventListener('mouseenter', () => {
-                flowerContainer.style.transform = 'scale(1.1)';
-                flowerContainer.style.transition = 'transform 0.3s ease';
-            });
-
-            flowerContainer.addEventListener('mouseleave', () => {
-                flowerContainer.style.transform = 'scale(1)';
-            });
-
-            // Click to create extra hearts
-            flowerContainer.addEventListener('click', () => {
-                for (let i = 0; i < 3; i++) {
-                    setTimeout(() => createLoveHeart(), i * 200);
-                }
-            });
-        }
-
-        // Initialize the flower
+        // Initialize the flowers
         function init() {
-            createHydrangeaFlowers();
-            addColorVariation();
-            addInteractivity();
+            // Create center cluster with mixed colors
+            createHydrangeaFlowers('flowerClusterCenter', 30, 'default');
 
-            // Continuously create love hearts and sparkles
-            setInterval(createLoveHeart, 2000);
-            setInterval(createSparkle, 1500);
+            // Create surrounding clusters with specific color schemes
+            createHydrangeaFlowers('flowerClusterTop', 15, 'purple');
+            createHydrangeaFlowers('flowerClusterBottom', 15, 'blue');
+            createHydrangeaFlowers('flowerClusterLeft', 15, 'pink');
+            createHydrangeaFlowers('flowerClusterRight', 15, 'lavender');
+
+            // Create diagonal clusters with more color variety
+            createHydrangeaFlowers('flowerClusterTopLeft', 12, 'coral');
+            createHydrangeaFlowers('flowerClusterTopRight', 12, 'mint');
+            createHydrangeaFlowers('flowerClusterBottomLeft', 12, 'purple');
+            createHydrangeaFlowers('flowerClusterBottomRight', 12, 'blue');
+
+            setInterval(createSparkle, 800);
         }
-
-        // Start when page loads
         window.addEventListener('load', init);
     </script>
 </body>
